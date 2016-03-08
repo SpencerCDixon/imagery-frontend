@@ -1,18 +1,4 @@
-React Redux Starter Kit
-=======================
-
-[![Join the chat at https://gitter.im/davezuko/react-redux-starter-kit](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/davezuko/react-redux-starter-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/davezuko/react-redux-starter-kit.svg?branch=master)](https://travis-ci.org/davezuko/react-redux-starter-kit?branch=master)
-[![dependencies](https://david-dm.org/davezuko/react-redux-starter-kit.svg)](https://david-dm.org/davezuko/react-redux-starter-kit)
-[![devDependency Status](https://david-dm.org/davezuko/react-redux-starter-kit/dev-status.svg)](https://david-dm.org/davezuko/react-redux-starter-kit#info=devDependencies)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-
-> ### Want Semicolons?
-> After installing npm dependencies, open `.eslintrc`, change the `semi` rule from `never` to `always`, and then run `npm run lint:fix` -- Easy as that! Alternatively, use the same npm script after installing and extending your preferred ESLint configuration; it's easy to customize the project's code style to suit your team's needs. See, we can coexist peacefully.
-
-This starter kit is designed to get you up and running with a bunch of awesome new front-end technologies, all on top of a configurable, feature-rich webpack build system that's already setup to provide hot reloading, CSS modules with Sass support, unit testing, code coverage reports, bundle splitting, and a whole lot more.
-
-The primary goal of this project is to remain as **unopinionated** as possible. Its purpose is not to dictate your project structure or to demonstrate a complete sample application, but to provide a set of tools intended to make front-end development robust, easy, and, most importantly, fun. Check out the full feature list below!
+Redux starter kit I prefer in case you're interested in how it works:
 
 Table of Contents
 -----------------
@@ -53,7 +39,6 @@ Features
   * Mocha w/ chai, sinon-chai, and chai-as-promised, and [chai-enzyme](https://github.com/producthunt/chai-enzyme)
   * PhantomJS
   * Code coverage reports/instrumentation with [isparta](https://github.com/deepsweet/isparta-loader)
-* [Flow](http://flowtype.org/) (`^0.22.0`)
 * [Babel](https://github.com/babel/babel) (`^6.3.0`)
   * [react-transform-hmr](https://github.com/gaearon/react-transform-hmr) hot reloading for React components
   * [redbox-react](https://github.com/KeywordBrain/redbox-react) visible error reporting for React components
@@ -119,7 +104,6 @@ Great, now that introductions have been made here's everything in full detail:
 |`npm run test`|Runs unit tests with Karma and generates a coverage report.|
 |`npm run test:dev`|Runs Karma and watches for changes to re-run tests; does not generate coverage reports.|
 |`npm run deploy`|Runs linter, tests, and then, on success, compiles your application to disk.|
-|`npm run flow:check`|Analyzes the project for type errors.|
 |`npm run lint`|Lint all `.js` files.|
 |`npm run lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 

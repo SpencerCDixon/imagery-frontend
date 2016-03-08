@@ -1,9 +1,9 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   locals: function (options) {
     // Return custom template variables here.
-    return {}
+    return {};
   },
 
   fileMapTokens: function (options) {
@@ -11,17 +11,17 @@ module.exports = {
     return {
       __token__: function (options) {
         // logic to determine value goes here
-        return 'value'
+        return 'value';
       }
-    }
+    };
   },
 
   // Should probably never need to be overriden
 
   filesPath: function () {
-    return path.join(this.path, 'files')
+    return path.join(this.path, 'files');
   },
 
   beforeInstall: function (options) {},
   afterInstall: function (options) {}
-}
+};

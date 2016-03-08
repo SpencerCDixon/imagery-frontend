@@ -5,11 +5,11 @@ function <%= pascalEntityName %> ({ children }) {
     <div className='<%= snakeEntityName %>-layout'>
       {children}
     </div>
-  )
+  );
 }
 
 <%= pascalEntityName %>.propTypes = {
   children: PropTypes.element
-}
+};
 
-export default <%= pascalEntityName %>
+export default <%= pascalEntityName %>;

@@ -1,9 +1,9 @@
-import reducer, { initialState } from 'redux/modules/<%= pascalEntityName %>'
+import reducer, { initialState } from 'redux/modules/<%= camelEntityName %>';
 
-describe('(Redux) <%= pascalEntityName %>', () => {
+describe('(Redux) <%= camelEntityName %>', () => {
   describe('(Reducer)', () => {
     it('sets up initial state', () => {
-      expect(reducer(undefined, {})).to.eql(initialState)
-    })
-  })
-})
+      expect(reducer(undefined, {})).to.eql(initialState);
+    });
+  });
+});

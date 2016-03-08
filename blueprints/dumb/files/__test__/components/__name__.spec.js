@@ -1,8 +1,10 @@
-import React from 'react'
-import <%= pascalEntityName %> from 'components/<%= pascalEntityName %>/<%= pascalEntityName %>'
+import { shallow } from 'enzyme';
+import <%= pascalEntityName %> from 'components/<%= pascalEntityName %>'
 
 describe('(Component) <%= pascalEntityName %>', () => {
-  it('should exist', () => {
+  const wrapper = shallow(<<%= pascalEntityName %>/>);
 
+  it('should exist', () => {
+    expect(wrapper.type()).to.eql('div');
   })
 })

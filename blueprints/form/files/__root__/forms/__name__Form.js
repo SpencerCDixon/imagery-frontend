@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 
 export const fields = []
@@ -8,17 +8,12 @@ const validate = (values) => {
   return errors
 }
 
-type Props = {
-  handleSubmit: Function,
-  fields: Object,
-}
-export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
+const propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  fields: PropTypes.object.isRequired
+};
 
-  defaultProps = {
-    fields: {},
-  }
-
+export class <%= pascalEntityName %> extends Component {
   render() {
     const { fields, handleSubmit } = this.props
 

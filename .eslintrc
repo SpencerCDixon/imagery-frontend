@@ -2,7 +2,8 @@
   "parser"  : "babel-eslint",
   "extends" : [
     "standard",
-    "standard-react"
+    "standard-react",
+    "airbnb"
   ],
   "env"     : {
     "browser" : true
@@ -18,5 +19,8 @@
   "rules": {
     "semi" : [2, "always"],
     "max-len": [2, 120, 2],
+    "object-curly-spacing": 0,
+    "arrow-body-style": 0,
+    "no-multi-spaces": 0
   }
 }

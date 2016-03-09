@@ -1,19 +1,33 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { fetchBrands } from 'redux/modules/brands';
 
-export class HomeView extends Component {
-  static propTypes = {
-    counter: PropTypes.number.isRequired,
-    doubleAsync: PropTypes.func.isRequired,
-    increment: PropTypes.func.isRequired
-  };
+const propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
-  render () {
+class HomeView extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchBrands());
+  }
+
+  render() {
     return (
-      <div className='container text-center'>
-        <h1>Welcome to Imagery</h1>
+      <div>
+        <h1>Imagery</h1>
       </div>
     );
   }
 }
 
-export default HomeView;
+const mapStateToProps = (state) => {
+  return {
+    brands: state.brands.items,
+  };
+};
+
+HomeView.propTypes = propTypes;
+export default connect(
+  mapStateToProps,
+)(HomeView);
+

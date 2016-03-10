@@ -1,10 +1,10 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "2.0.0-alpha.1",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "Imagery",
+  "version": "0.0.1",
+  "description": "Ditto image frontend",
   "main": "index.js",
   "engines": {
-    "node": ">=4.2.0",
+    "node": ">=5.1.0",
     "npm": "^3.0.0"
   },
   "scripts": {
@@ -58,9 +58,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davezuko/react-redux-starter-kit.git"
+    "url": "git@github.com:SpencerCDixon/imagery-frontend.git"
   },
-  "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
+  "author": "Spencer Dixon",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.9.1",

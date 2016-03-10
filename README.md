@@ -1,3 +1,18 @@
+## Getting Started
+
+
+## Library Decisions
+
+`classnames` - makes adding css classnames based on conditionally logic much cleaner.  
+`axios` - promise basted AJAX library with a nice API that I enjoy.  Vanilla
+fetch is also a good option but you need to manually setup polyfills to use.  
+`humps` - lightweight text processing library adapted from ember-cli string
+utils.  I like using it to normalize api data to be javascript friendly (ie no_snake_case_in_var_names)  
+`react-pure-render` - allows for EXTREME perf benefits.  When using Redux you
+can do a === equality check on props to determine whether or not to re-render.
+By using this it increases speed of app drastically  
+
+
 Redux starter kit I prefer in case you're interested in how it works:
 
 Table of Contents

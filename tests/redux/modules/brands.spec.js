@@ -56,5 +56,15 @@ describe('(Redux) brands', () => {
 
       expect(reducer(initialState, action)).to.eql(nextState);
     });
+
+    it('handles SET_FILTER', function() {
+      const initialState = { selectedBrand: undefined };
+      deepFreeze(initialState);
+
+      const action = { type: constants.SET_FILTER, id: '1' };
+      const nextState = { selectedBrand: '1' };
+
+      expect(reducer(initialState, action)).to.eql(nextState);
+    });
   });
 });

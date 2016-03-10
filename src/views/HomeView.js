@@ -1,20 +1,35 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchBrands } from 'redux/modules/brands';
+
+import { actions as brandActions } from 'redux/modules/brands';
+import BrandFilters from 'components/BrandFilters';
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  brands: PropTypes.array.isRequired,
+  selectedBrand: PropTypes.string,
+
+  // Action Creators
+  fetchBrands: PropTypes.func.isRequired,
+  setBrandFilter: PropTypes.func.isRequired,
 };
 
 class HomeView extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchBrands());
+    this.props.fetchBrands();
   }
 
   render() {
+    const { brands, selectedBrand, setBrandFilter } = this.props;
+
     return (
-      <div>
+      <div className="container">
         <h1>Imagery</h1>
+        <BrandFilters
+          brands={brands}
+          selectedBrand={selectedBrand}
+          setBrandFilter={setBrandFilter}
+        />
       </div>
     );
   }
@@ -23,11 +38,21 @@ class HomeView extends Component {
 const mapStateToProps = (state) => {
   return {
     brands: state.brands.items,
+    selectedBrand: state.brands.selectedBrand,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({
+      ...brandActions,
+    }, dispatch),
   };
 };
 
 HomeView.propTypes = propTypes;
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(HomeView);
 

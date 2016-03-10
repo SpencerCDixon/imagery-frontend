@@ -64,6 +64,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.9.1",
+    "classnames": "^2.2.3",
     "debug": "^2.2.0",
     "history": "^2.0.0",
     "humps": "^1.0.0",
@@ -74,6 +75,7 @@
     "koa-static": "^2.0.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-pure-render": "^1.0.2",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.0",

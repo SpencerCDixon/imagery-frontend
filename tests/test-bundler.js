@@ -6,6 +6,8 @@ import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiEnzyme from 'chai-enzyme';
+import { shallow, mount } from 'enzyme';
+import createFactory from './helpers/createFactory';
 
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
@@ -15,6 +17,9 @@ global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;
 global.should = chai.should();
+global.shallow = shallow;
+global.mount = mount;
+global.createFactory = createFactory;
 
 // ---------------------------------------
 // Require Tests

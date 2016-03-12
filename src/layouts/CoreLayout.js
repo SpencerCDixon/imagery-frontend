@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import '../styles/core.scss';
 
-function CoreLayout ({ children }) {
+function CoreLayout({children}) {
   return (
-    <div className='page-container'>
-      <div className='view-container'>
+    <div className="page-container">
+      <div className="view-container">
         {children}
       </div>
     </div>
@@ -12,7 +12,7 @@ function CoreLayout ({ children }) {
 }
 
 CoreLayout.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
 };
 
 export default CoreLayout;

@@ -49,7 +49,7 @@ export const fetchInfinitePhotos = () => {
       return;
     }
 
-    let payload = { offset: pagination, brands: selectedBrand };
+    const payload = { offset: pagination, brands: selectedBrand };
     if (selectedBrand === 'none') {
       delete payload.brands;
     }

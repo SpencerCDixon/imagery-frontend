@@ -75,6 +75,8 @@ an action.  For example, if you only wanted to let an action get dispatched to
 fetch photos if the last fetch occured greater than 5 seconds ago.  In those
 cases, tests for ACreators are a must!
 
+[Here is an example of a more complicated ACreator that I tested.](https://github.com/SpencerCDixon/imagery-frontend/blob/master/tests/redux/modules/photos.spec.js#L94-L158)
+
 ## Redux
 I use the concept of a 'Duck' in redux.  [Here is a link to the proposal](https://github.com/erikras/ducks-modular-redux).
 By using Ducks you avoid name collisions in action creators making it easier to

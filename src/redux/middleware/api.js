@@ -50,7 +50,9 @@ function callApi(endpoint, actionArgs = {}) {
 }
 
 // Clean syntax for currying our functions to create the actual middleware
+/* eslint-disable */
 export default store => next => action => {
+/* eslint-enable */
   const callAPI = action[CALL_API];
 
   // Bail out right away because this is not an action

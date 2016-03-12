@@ -26,4 +26,3 @@ class BrandFilter extends Component {
 
 BrandFilter.propTypes = propTypes;
 export default BrandFilter;
-

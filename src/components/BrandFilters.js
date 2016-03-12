@@ -36,7 +36,6 @@ class BrandFilters extends Component {
   }
 
   render() {
-    // const { children } = this.props;
     const { selectedBrand } = this.props;
     return (
       <div className="btn-group">
@@ -54,4 +53,3 @@ class BrandFilters extends Component {
 
 BrandFilters.propTypes = propTypes;
 export default BrandFilters;
-

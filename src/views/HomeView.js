@@ -38,7 +38,10 @@ class HomeView extends Component {
   componentWillReceiveProps(nextProps) {
     const { selectedBrand, fetchPhotos } = this.props;
     if (selectedBrand !== nextProps.selectedBrand) {
-      const payload = { brands: nextProps.selectedBrand };
+      let payload;
+      if (nextProps.selectedBrand !== 'none') {
+        payload = { brands: nextProps.selectedBrand };
+      }
       fetchPhotos(payload);
     }
   }

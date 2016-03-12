@@ -1,14 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+import FlipMove from 'react-flip-move';
 import GalleryCard from 'components/GalleryCard';
 
 const propTypes = {
   photos: PropTypes.array.isRequired,
+  view: PropTypes.string.isRequired,
 };
 
 export class PhotoGallery extends Component {
   renderPhotos = () => {
-    return this.props.photos.map((photo) => {
-      return <GalleryCard key={photo.id} {...photo} />;
+    const { photos, view } = this.props;
+
+    return photos.map((photo) => {
+      return <GalleryCard key={photo.id} {...photo} view={view} />;
     });
   }
 
@@ -16,7 +20,9 @@ export class PhotoGallery extends Component {
     return (
       <div>
         <ul>
-          {this.renderPhotos()}
+          <FlipMove staggerDurationBy="30" duration={500}>
+            {this.renderPhotos()}
+          </FlipMove>
         </ul>
       </div>
     );

@@ -8,12 +8,14 @@ import { actions as photoActions } from 'redux/modules/photos';
 import BrandFilters from 'components/BrandFilters';
 import Spinner from 'components/Spinner';
 import PhotoGallery from 'components/PhotoGallery';
+import Toggle from 'components/Toggle';
 
 const propTypes = {
   globalFetch: PropTypes.bool.isRequired,
   brands: PropTypes.array.isRequired,
   photos: PropTypes.array.isRequired,
   selectedBrand: PropTypes.string,
+  photoView: PropTypes.string.isRequired,
 
   // Brand Action Creators
   fetchBrands: PropTypes.func.isRequired,
@@ -21,6 +23,8 @@ const propTypes = {
 
   // Photo Action Creators
   fetchPhotos: PropTypes.func.isRequired,
+  shufflePhotos: PropTypes.func.isRequired,
+  changePhotoView: PropTypes.func.isRequired,
 };
 
 class HomeView extends Component {
@@ -37,6 +41,14 @@ class HomeView extends Component {
     }
   }
 
+  handleListView = () => {
+    this.props.changePhotoView('list');
+  }
+
+  handleGridView = () => {
+    this.props.changePhotoView('grid');
+  }
+
   render() {
     const {
       brands,
@@ -44,6 +56,8 @@ class HomeView extends Component {
       selectedBrand,
       setBrandFilter,
       globalFetch,
+      shufflePhotos,
+      photoView,
     } = this.props;
 
     return (
@@ -56,18 +70,41 @@ class HomeView extends Component {
         </div>
 
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-6">
             <BrandFilters
               brands={brands}
               selectedBrand={selectedBrand}
               setBrandFilter={setBrandFilter}
             />
           </div>
+          <div className="col-md-6">
+            <div className="btn-toolbar">
+              <Toggle
+                handleClick={shufflePhotos}
+                text="Shuffle"
+                icon="random"
+              />
+              <div className="btn-group">
+                <Toggle
+                  handleClick={this.handleListView}
+                  text="List"
+                  icon="list"
+                  isActive={photoView === 'list'}
+                />
+                <Toggle
+                  handleClick={this.handleGridView}
+                  text="Grid"
+                  icon="th"
+                  isActive={photoView === 'grid'}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="row">
           <div className="col-md-12">
-            <PhotoGallery photos={photos} />
+            <PhotoGallery photos={photos} view={photoView} />
           </div>
         </div>
       </div>
@@ -81,6 +118,7 @@ const mapStateToProps = (state) => {
     photos: state.photos.items,
     selectedBrand: state.brands.selectedBrand,
     globalFetch: state.brands.isFetching || state.photos.isFetching,
+    photoView: state.photos.view,
   };
 };
 

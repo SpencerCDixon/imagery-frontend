@@ -64,6 +64,17 @@ assertions that it's getting the proper styling.  Since layout styling and
 purely aesthetic styling changes so often I don't usually make assertions on
 those things since it forces developers to change tests too frequently.
 
+When testing the redux logic I tend to make sure my reducers are tested no
+matter what since they house the main determining logic of what my UI will look
+like.  Testing action creators seems somewhat redundant to me since they're just
+functions that return an object.  If an action creator is ever doing something
+out of the ordinary I will definitely write a test for it.
+
+The main benefits of Action Creators is it alows you to decouple additional logic around dispatching
+an action.  For example, if you only wanted to let an action get dispatched to
+fetch photos if the last fetch occured greater than 5 seconds ago.  In those
+cases, tests for ACreators are a must!
+
 ## Redux
 I use the concept of a 'Duck' in redux.  [Here is a link to the proposal](https://github.com/erikras/ducks-modular-redux).
 By using Ducks you avoid name collisions in action creators making it easier to
@@ -141,8 +152,54 @@ export const function fetchPhotos(payload) {
 };
 ```
 
+## ES6 & Arrow Functions
+Sometimes the use of arrow functions is a stylistic preference but sometimes
+it's actually very important.  The lexical binding of `this` is different in arrow
+functions.  [Read more here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+When I use an arrow function for a handler inside a React component it is
+binding `this` to the component since with ES6 syntax there is no auto-binding
+like in es5's React.createClass.  Alternatively I could bind them in the
+constructor like so.  Unless I need the constructor to setup other things I
+avoid it.
 
-## Library Decisions
+```javascript
+constructor(props) {
+  super(props);
+  this.handleClick = this.handleClick.bind(this)
+}
+
+handleClick() {
+  ...
+}
+```
+
+In some cases like in the HomeView you can see
+it would appear to be better to bind the function in the render() function with
+their required arguments, ie.  instead of having `handleListView` AND `handleGridView` I could have bound the
+argument in the render like this:
+
+```
+<Toggle
+  handleClick={this.props.changePhotoView.bind(this, 'list')
+  ...
+/>
+
+AND
+<Toggle
+  handleClick={this.props.changePhotoView.bind(this, 'grid')
+  ...
+/>
+```
+
+This is bad for performance though.  Because now on every re-render the
+handleClick for those components will have a new reference and the === will fail
+forcing a re-render.  By creating specific handlers for each callback they will
+be the same function and our === will pass so the Toggle's won't need to
+re-render.  Again, this is over optimized since this is such a small app and
+React will render things fine, but still think it's important to point out
+important concepts that should be followed on an app at scale.
+
+## Library Decisions That Arn't Standard/Required
 
 `classnames` - makes adding css classnames based on conditional logic much cleaner.
 
@@ -156,6 +213,14 @@ utils.  I like using it to normalize api data to be javascript friendly (ie no_s
 can do a === equality check on props to determine whether or not to re-render.
 By using this it increases speed of app drastically.  Overkill for such a small
 app but definitely required for react apps at scale.
+
+`react-flip-move` - honestly, just a cool library I wanted to use for some animations
+
+`lodash.shuffle` - just needed a shuffle function for react-flip-move and didn't
+want to pull in a huge dependency like lodash to just use one function.
+Luckily, they now distribute lodash in independent modules so you can get just
+what you need and not add a lot of bloat to your bundled.js that gets served to
+client.
 
 ## Time Break Down
 

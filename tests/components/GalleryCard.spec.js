@@ -5,6 +5,7 @@ const renderComp = createFactory(GalleryCard, {
   userHandle: '@spencercdixon',
   matches: [],
   imageUrl: 'http://someimage.com',
+  view: 'list',
 });
 
 describe('(Component) GalleryCard', function() {
@@ -23,6 +24,24 @@ describe('(Component) GalleryCard', function() {
     it('shows user handle', function() {
       const caption = wrapper.find('.caption');
       expect(caption).to.contain('@spencercdixon');
+    });
+  });
+
+  context('when list view...', function() {
+    const wrapper = renderComp({view: 'list'});
+    it('renders li as blocks', function() {
+      const styles = wrapper.prop('style');
+
+      expect(styles.display).to.eql('block');
+    });
+  });
+
+  context('when grid view...', function() {
+    const wrapper = renderComp({view: 'grid'});
+    it('renders li as inline-blocks', function() {
+      const styles = wrapper.prop('style');
+
+      expect(styles.display).to.eql('inline-block');
     });
   });
 });

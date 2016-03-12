@@ -10,7 +10,7 @@ const propTypes = {
 
 const styles = {
   marginRight: '5px',
-  marginLeft: '5px'
+  marginLeft: '5px',
 };
 
 const defaultProps = {

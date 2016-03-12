@@ -77,7 +77,7 @@ export const initialState = {
   didInvalidate: false,
   items: [],
   pagination: undefined,
-  view: 'list',
+  view: 'grid',
 };
 export default function (state = initialState, action) {
   switch (action.type) {

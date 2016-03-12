@@ -15,7 +15,7 @@ export class PhotoGallery extends Component {
   renderPhotos = () => {
     const { photos, view } = this.props;
 
-    return photos.map((photo) => {
+    return photos.map(photo => {
       return <GalleryCard key={photo.id} {...photo} view={view} />;
     });
   }
@@ -35,4 +35,3 @@ export class PhotoGallery extends Component {
 
 PhotoGallery.propTypes = propTypes;
 export default PhotoGallery;
-

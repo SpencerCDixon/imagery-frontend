@@ -6,6 +6,8 @@ const renderComp = createFactory(GalleryCard, {
   matches: [{ brand: 1, logoRect: [[481, 416]]}],
   imageUrl: 'http://someimage.com',
   view: 'list',
+  imageWidth: 300,
+  imageHeight: 600,
 });
 
 describe('(Component) GalleryCard', function() {
@@ -18,7 +20,6 @@ describe('(Component) GalleryCard', function() {
 
     it('contains a thumnail of the image', function() {
       expect(wrapper.find('.thumbnail')).to.exist;
-      expect(wrapper.find('img')).to.have.length(1);
     });
 
     it('shows user handle', function() {

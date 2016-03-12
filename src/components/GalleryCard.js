@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
+import ImageMatch from 'components/ImageMatch';
+
 const propTypes = {
   userHandle: PropTypes.string.isRequired,
   matches: PropTypes.array.isRequired,
   imageUrl: PropTypes.string.isRequired,
   view: PropTypes.string.isRequired,
+  imageWidth: PropTypes.number.isRequired,
+  imageHeight: PropTypes.number.isRequired,
 };
 
 const styles = {
@@ -26,7 +30,14 @@ class GalleryCard extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-    const { userHandle, imageUrl, view } = this.props;
+    const {
+      userHandle,
+      imageUrl,
+      view,
+      matches,
+      imageWidth,
+      imageHeight,
+    } = this.props;
 
     const finalStyles = Object.assign(
       {},
@@ -37,7 +48,12 @@ class GalleryCard extends Component {
     return (
       <li style={finalStyles}>
         <div className="thumbnail">
-          <img src={imageUrl} width="250" height="250" />
+          <ImageMatch
+            src={imageUrl}
+            matches={matches}
+            originalHeight={imageHeight}
+            originalWidth={imageWidth}
+          />
           <div className="caption">
             <h3>{userHandle}</h3>
           </div>

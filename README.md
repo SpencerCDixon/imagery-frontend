@@ -207,6 +207,31 @@ re-render.  Again, this is over optimized since this is such a small app and
 React will render things fine, but still think it's important to point out
 important concepts that should be followed on an app at scale.
 
+## Import Conventions
+I tend to use a few import conventions to make life easier in development.
+First noticeable one is in components that require a lot of imports I split them
+up into sections.  The first section is always library specific imports and the
+second is internal imports.  If its a Smart/Container component dealing with
+Redux I will have a section for those as well.  Like so:
+
+```javascript
+// library imports
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Waypoint from 'react-waypoint';
+
+// redux imports
+import { actions as brandActions } from 'redux/modules/brands';
+import { actions as photoActions } from 'redux/modules/photos';
+
+// internal imports
+import BrandFilters from 'components/BrandFilters';
+import Spinner from 'components/Spinner';
+import PhotoGallery from 'components/PhotoGallery';
+import Toggle from 'components/Toggle';
+```
+
 ## Library Decisions That Arn't Standard/Required
 
 `classnames` - makes adding css classnames based on conditional logic much cleaner.
@@ -227,8 +252,8 @@ app but definitely required for react apps at scale.
 `lodash.shuffle` - just needed a shuffle function for react-flip-move and didn't
 want to pull in a huge dependency like lodash to just use one function.
 Luckily, they now distribute lodash in independent modules so you can get just
-what you need and not add a lot of bloat to your bundled.js that gets served to
-client.
+what you need and not add a lot of bloat to your bundle.js that gets served to
+the client.
 
 `react-waypoint` - library I like to use for implementing infinite scroll.
 Allows you to dispatch some function when the scrolling gets to a specific part
@@ -252,8 +277,42 @@ working in postman but not the app (was missing a silly `query` key for httparty
 * `~60 min` list/grid view of images with shuffle feature and infinite scroll
     that maintains filters.
 
+* `~30 min` fixing up lint errors and debugging issue where Ditto api doesn't
+    actually return proper HTTP Status Code on error. IMO should return 422 for
+    invalid params, not 200 with error message.
 
-Redux starter kit I prefer in case you're interested in how it works:
+* `~10 min` picking good colors for highlighting image matches
+
+* `~30 min` building component for rendering images with matches
+
+* `~20 min` figuring out how to fix aspect ratio for when I reduce original
+    image size to 250px
+
+## Critiques/Unlimited Time
+If I had more time I would make the styling look nice instead of basic
+bootstrap.  Didn't really want to waste my time on that since I figured I would
+be given design mockups anyways in the real world.
+
+I definitely over-engineered a lot of aspects of the code challenge but it was
+in the hopes of displaying to you how production React/Redux apps should work.
+
+If I had more time I would create schemas and normalize your API client side
+using [this](https://github.com/gaearon/normalizr).  Since the amount of data I
+was dealing with was minimal it didn't seem worth it.
+
+I would also extract the `ImageMatch` component and put all the logic for
+scaling and calculating the match dimensions in a utility file.  I feel like
+that logic shouldn't belong in the component and it would be easier to unit test
+all the calculations if it was extracted.  I'm pretty sure I have pixel rounding
+issues in the current implementation.
+
+I'm sure there is a lot of other things that I could change to be more
+expressive and am definitely open to feedback from you guys!
+
+==================
+
+Redux starter kit I prefer in case you're interested in how it works/project
+structure:
 
 Table of Contents
 -----------------

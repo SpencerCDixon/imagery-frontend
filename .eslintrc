@@ -23,5 +23,6 @@
     "arrow-body-style": 0,
     "no-multi-spaces": 0,
     "react/prefer-stateless-function": 0,
+    "no-use-before-define": 0
   }
 }

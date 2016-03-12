@@ -44,7 +44,6 @@ npm test          # run it once
 npm run test:dev  # run it in watch mode, you can edit tests and they re-run super fast
 ```
 
-
 ## Testing
 All tests require a `test-bundler` before running (similar to rails_helper) that
 sets a bunch of globals to reduce boilerplate.  [That file can be found here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/tests/test-bundler.js).
@@ -64,6 +63,83 @@ component should be a different color based on some state then I want to make
 assertions that it's getting the proper styling.  Since layout styling and
 purely aesthetic styling changes so often I don't usually make assertions on
 those things since it forces developers to change tests too frequently.
+
+## Redux
+I use the concept of a 'Duck' in redux.  [Here is a link to the proposal](https://github.com/erikras/ducks-modular-redux).
+By using Ducks you avoid name collisions in action creators making it easier to
+work with other developers/scale a big app.  It also promotes good redux code where you take
+advantage of functional composition and never let Reducers get too unweildy.  It puts all redux related logic
+in one file opposed to three which I've found makes me a happier developer/more
+efficient.  When all redux code is in one file if the file ever starts to get
+bigger than 200-300 LOC then you know it's time to probably refactor into
+smaller pieces.
+
+When using Redux everything needs to be immutable.  There are really two options
+to comply with this: use a library like [Immutable.js](https://facebook.github.io/immutable-js/) OR make sure you just
+never mutate objects in your reducers.  I'm generally in favor of not using
+Immutable if it's a small/medium sized application and instead using this piece
+of [middleware](https://github.com/leoasis/redux-immutable-state-invariant)
+which enforces immutability and throws warnings if you ever mess up (like using
+`splice()` instead of `slice()`).  I only use that middleware in development but
+it's useful if you have developers who arn't as familiar with JS and which
+methods mutate vs. return new arrays/objects.
+
+## Middleware
+I built middleware to deal with interacting with the API even though it was
+totally overkill for such a small example app.  I just wanted to show you the
+power of middleware and how much boilerplate it can reduce. [The middleware can
+be found here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/src/redux/middleware/api.js).
+It's pretty well commented but it's also deals with a lot of complex topics that
+might be somewhat confusing.  The main benefit of this middleware is it prevents
+a big piece of boilerplate and can do a lot of normalization/processing of your
+API.  Here is an example of the boilerplate reduction:
+
+Before middleware to interact with API:
+```javascript
+// Using JQuery Ajax since your team should all be familiar with that,
+// Avoids ES6 syntax
+
+export function requestPhotos() {
+  return { type: REQUEST_PHOTOS };
+}
+
+export function receivePhotos(data) {
+  return {
+    type: RECEIVE_PHOTOS,
+    offers: data.photos,
+    pagination: data.meta.pagination,
+  };
+}
+
+export function failPhotos() {
+  return { type: FAIL_PHOTOS };
+}
+
+export function fetchPhotos(payload) {
+  return (dispatch) => {
+    dispatch(requestPhotos());
+
+    return $.getJSON('/api/v1/stream?' + payload, (data) => {
+      dispatch(receivePhotos(data));
+    }).fail(() => {
+      dispatch(failPhotos());
+    });
+  };
+}
+```
+
+With the middleware it can be reduced to this:
+```javascript
+export const function fetchPhotos(payload) {
+  return {
+    [CALL_API]: {
+      endpoint: '/stream',
+      types: [PHOTO_REQUEST, PHOTO_SUCCESS, PHOTO_FAILURE],
+      payload,
+    },
+  };
+};
+```
 
 
 ## Library Decisions

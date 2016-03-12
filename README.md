@@ -1,5 +1,49 @@
 ## Getting Started
 
+### Backend
+Backend must be running for frontend to work properly.  **Note** - make sure to
+put a valid `DITTO_CLIENT_ID` in the .env file.
+```sh
+git clone git@github.com:SpencerCDixon/imagery-backend.git
+cd imagery-backend
+bundle
+ruby server.rb
+```
+
+### Frontend
+Make sure you have nvm installed.  Nvm is a node package manager like rubies
+rvm.  [Nvm github page can be found here](https://github.com/creationix/nvm) OR
+you can install with:
+
+```sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+```
+
+Once nvm is setup:
+
+```sh
+git clone git@github.com:SpencerCDixon/imagery-frontend.git
+cd imagery-frontend
+nvm install 5.1 && nvm use 5.1
+npm install
+
+npm start                    # will start the app with Redux loggin inline
+# OR
+npm run dev:nw               # this will run app with Redux logging in a new window
+
+# finally:
+open http://localhost:3000   # NOTE: make sure backend is running successfully on port 4567
+```
+If you use npm start there are some hotkeys for the redux devtools.  `ctrl + h`
+will toggle their visibility and `ctrl + q` will move them to different parts of
+the screen.
+
+To run the test suite:
+```
+npm test          # run it once
+npm run test:dev  # run it in watch mode, you can edit tests and they re-run super fast
+```
+
 
 ## Testing
 All tests require a `test-bundler` before running (similar to rails_helper) that
@@ -24,7 +68,7 @@ those things since it forces developers to change tests too frequently.
 
 ## Library Decisions
 
-`classnames` - makes adding css classnames based on conditionally logic much cleaner.
+`classnames` - makes adding css classnames based on conditional logic much cleaner.
 
 `axios` - promise basted AJAX library with a nice API that I enjoy.  Vanilla
 fetch is also a good option but you need to manually setup polyfills to use.
@@ -34,7 +78,24 @@ utils.  I like using it to normalize api data to be javascript friendly (ie no_s
 
 `react-pure-render` - allows for EXTREME perf benefits.  When using Redux you
 can do a === equality check on props to determine whether or not to re-render.
-By using this it increases speed of app drastically
+By using this it increases speed of app drastically.  Overkill for such a small
+app but definitely required for react apps at scale.
+
+## Time Break Down
+
+* `~15 min` getting boilerplate setup with my preferences (used my redux-cli to make things go quicker)
+
+* `~60 min` waisted trying to get the Ditto API to work with CORS.
+
+* `~10 min` making a sinatra api that proxies requests to Ditto API
+
+* `~15 min` trying to debug the sinatra proxy to properly pass params through, was
+working in postman but not the app (was missing a silly `query` key for httparty)
+
+* `~2.5` hours to get all components/redux written for the basic requirements of the
+coding challenge with tests
+
+* `~30 min` writing up documentation on READMEs
 
 
 Redux starter kit I prefer in case you're interested in how it works:

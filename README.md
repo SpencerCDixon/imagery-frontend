@@ -237,10 +237,12 @@ of the screen.
 * `~15 min` trying to debug the sinatra proxy to properly pass params through, was
 working in postman but not the app (was missing a silly `query` key for httparty)
 
-* `~2.5` hours to get all components/redux written for the basic requirements of the
-coding challenge with tests
+* `~2.5` hours to get all components/redux written for the basic requirements of the coding challenge with tests
 
-* `~30 min` writing up documentation on READMEs
+* `~45 min` writing up documentation on READMEs
+
+* `~60 min` list/grid view of images with shuffle feature and infinite scroll
+    that maintains filters.
 
 
 Redux starter kit I prefer in case you're interested in how it works:

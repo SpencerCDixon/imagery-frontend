@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
 const propTypes = {
   userHandle: PropTypes.string.isRequired,
@@ -22,6 +23,8 @@ const styles = {
 };
 
 class GalleryCard extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   render() {
     const { userHandle, imageUrl, view } = this.props;
 

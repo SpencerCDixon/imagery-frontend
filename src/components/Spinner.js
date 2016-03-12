@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
+
 import Icon from 'components/Icon';
 
 const propTypes = {
@@ -14,6 +16,8 @@ const defaultProps = {
 };
 
 class Spinner extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   render() {
     const { size, inline, spinning } = this.props;
 

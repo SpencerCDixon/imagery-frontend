@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FlipMove from 'react-flip-move';
+import shouldPureComponentUpdate from 'react-pure-render/function';
+
 import GalleryCard from 'components/GalleryCard';
 
 const propTypes = {
@@ -8,6 +10,8 @@ const propTypes = {
 };
 
 export class PhotoGallery extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   renderPhotos = () => {
     const { photos, view } = this.props;
 

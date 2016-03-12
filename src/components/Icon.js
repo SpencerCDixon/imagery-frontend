@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
 const propTypes = {
   is: PropTypes.string.isRequired,
@@ -19,6 +20,8 @@ const defaultProps = {
 };
 
 class Icon extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   render() {
     const { is, size, style, spinning, ...rest } = this.props;
     const finalStyles = {...styles, ...style};

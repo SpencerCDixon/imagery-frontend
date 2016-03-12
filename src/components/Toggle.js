@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import cn from 'classnames';
+import shouldPureComponentUpdate from 'react-pure-render/function';
+
 import Icon from 'components/Icon';
 
 const propTypes = {
@@ -14,6 +16,8 @@ const defaultProps = {
 };
 
 class Toggle extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   render() {
     const { text, icon, handleClick, isActive } = this.props;
     const classes = cn('btn btn-default', {active: isActive});

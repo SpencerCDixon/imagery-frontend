@@ -27,9 +27,9 @@ cd imagery-frontend
 nvm install 5.1 && nvm use 5.1
 npm install
 
-npm start                    # will start the app with Redux loggin inline
+npm start                    # will start the app with Redux Devtools inline
 # OR
-npm run dev:nw               # this will run app with Redux logging in a new window
+npm run dev:nw               # this will run app with Redux Devtools in a new window
 
 # finally:
 open http://localhost:3000   # NOTE: make sure backend is running successfully on port 4567
@@ -38,9 +38,12 @@ If you use npm start there are some hotkeys for the redux devtools.  `ctrl + h`
 will toggle their visibility and `ctrl + q` will move them to different parts of
 the screen.
 
+Have fun with the DevTools!  You can click on the action names being dispatched
+to travel back in time.
+
 To run the test suite:
 ```
-npm test          # run it once
+npm test          # run it once with test coverage reporting
 npm run test:dev  # run it in watch mode, you can edit tests and they re-run super fast
 ```
 
@@ -54,7 +57,7 @@ renderComponent function that abstracts away default props/the rendering
 process.  You can find that Higher Order Function [here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/tests/helpers/createFactory.js).
 It allows me to create a function with a bunch of defaults set up (almost like
 using something like Factory Girl) so that way if in the future a Component
-needs more default props I can just add them in _one_ place instead of having to
+needs more default props I can just add them in **one** place instead of having to
 find every place in the tests where I'm rendering the component and making sure
 to add that required prop.
 
@@ -62,10 +65,10 @@ I generally don't test styling unless it is state specific.  For example, if a
 component should be a different color based on some state then I want to make
 assertions that it's getting the proper styling.  Since layout styling and
 purely aesthetic styling changes so often I don't usually make assertions on
-those things since it forces developers to change tests too frequently.
+those because it forces developers to change tests too frequently.
 
 When testing the redux logic I tend to make sure my reducers are tested no
-matter what since they house the main determining logic of what my UI will look
+matter what since they house the main logic for determining what my UI will look
 like.  Testing action creators seems somewhat redundant to me since they're just
 functions that return an object.  If an action creator is ever doing something
 out of the ordinary I will definitely write a test for it.
@@ -94,7 +97,7 @@ Immutable if it's a small/medium sized application and instead using this piece
 of [middleware](https://github.com/leoasis/redux-immutable-state-invariant)
 which enforces immutability and throws warnings if you ever mess up (like using
 `splice()` instead of `slice()`).  I only use that middleware in development but
-it's useful if you have developers who arn't as familiar with JS and which
+it's useful if you have developers who arn't as familiar with JS and don't know which
 methods mutate vs. return new arrays/objects.
 
 ## Middleware
@@ -102,15 +105,16 @@ I built middleware to deal with interacting with the API even though it was
 totally overkill for such a small example app.  I just wanted to show you the
 power of middleware and how much boilerplate it can reduce. [The middleware can
 be found here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/src/redux/middleware/api.js).
-It's pretty well commented but it's also deals with a lot of complex topics that
-might be somewhat confusing.  The main benefit of this middleware is it prevents
+It's pretty well commented but it also deals with a lot of complex topics that
+might be somewhat confusing.  [The Redux docs do a good job explaining
+middleware if you want to check it
+out](http://redux.js.org/docs/advanced/Middleware.html).  The main benefit of this middleware is it prevents
 a big piece of boilerplate and can do a lot of normalization/processing of your
 API.  Here is an example of the boilerplate reduction:
 
 Before middleware to interact with API:
 ```javascript
-// Using JQuery Ajax since your team should all be familiar with that,
-// Avoids ES6 syntax
+// Using JQuery Ajax since your team should all be familiar with that
 
 export function requestPhotos() {
   return { type: REQUEST_PHOTOS };
@@ -186,7 +190,7 @@ it would appear to be better to bind the function in the `render()` function wit
 their required arguments, ie.  instead of having `handleListView` AND `handleGridView` I could have bound the
 argument in the render like this:
 
-```
+```javascript
 <Toggle
   handleClick={this.props.changePhotoView.bind(this, 'list')
   ...
@@ -204,8 +208,8 @@ handleClick for those components will have a new reference and the === will fail
 forcing a re-render.  By creating specific handlers for each callback they will
 be the same function and our === will pass so the Toggle's won't need to
 re-render.  Again, this is over optimized since this is such a small app and
-React will render things fine, but still think it's important to point out
-important concepts that should be followed on an app at scale.
+React will render things fine, but I still think it's important to point out
+concepts that should be followed on an app at scale.
 
 ## Import Conventions
 I tend to use a few import conventions to make life easier in development.
@@ -270,9 +274,9 @@ of the screen.
 * `~15 min` trying to debug the sinatra proxy to properly pass params through, was
 working in postman but not the app (was missing a silly `query` key for httparty)
 
-* `~2.5` hours to get all components/redux written for the basic requirements of the coding challenge with tests
+* `~2.5 hours` to get all components/redux written for the basic requirements of the coding challenge with tests
 
-* `~45 min` writing up documentation on READMEs
+* `~1.5 hours` writing up documentation on READMEs
 
 * `~60 min` list/grid view of images with shuffle feature and infinite scroll
     that maintains filters.

@@ -159,8 +159,7 @@ functions.  [Read more here](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 When I use an arrow function for a handler inside a React component it is
 binding `this` to the component since with ES6 syntax there is no auto-binding
 like in es5's React.createClass.  Alternatively I could bind them in the
-constructor like so.  Unless I need the constructor to setup other things I
-avoid it.
+constructor like so.
 
 ```javascript
 constructor(props) {
@@ -171,10 +170,17 @@ constructor(props) {
 handleClick() {
   ...
 }
+
+vs.
+
+handleClick = () => {
+  ...
+}
 ```
+Unless I need the constructor to setup other things I avoid it.
 
 In some cases like in the HomeView you can see
-it would appear to be better to bind the function in the render() function with
+it would appear to be better to bind the function in the `render()` function with
 their required arguments, ie.  instead of having `handleListView` AND `handleGridView` I could have bound the
 argument in the render like this:
 

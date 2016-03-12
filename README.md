@@ -222,6 +222,10 @@ Luckily, they now distribute lodash in independent modules so you can get just
 what you need and not add a lot of bloat to your bundled.js that gets served to
 client.
 
+`react-waypoint` - library I like to use for implementing infinite scroll.
+Allows you to dispatch some function when the scrolling gets to a specific part
+of the screen.
+
 ## Time Break Down
 
 * `~15 min` getting boilerplate setup with my preferences (used my redux-cli to make things go quicker)

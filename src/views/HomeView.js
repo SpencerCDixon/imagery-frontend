@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Waypoint from 'react-waypoint';
 
 import { actions as brandActions } from 'redux/modules/brands';
 import { actions as photoActions } from 'redux/modules/photos';
@@ -23,6 +24,7 @@ const propTypes = {
 
   // Photo Action Creators
   fetchPhotos: PropTypes.func.isRequired,
+  fetchInfinitePhotos: PropTypes.func.isRequired,
   shufflePhotos: PropTypes.func.isRequired,
   changePhotoView: PropTypes.func.isRequired,
 };
@@ -47,6 +49,10 @@ class HomeView extends Component {
 
   handleGridView = () => {
     this.props.changePhotoView('grid');
+  }
+
+  handleInfiniteScroll = () => {
+    this.props.fetchInfinitePhotos();
   }
 
   render() {
@@ -105,6 +111,7 @@ class HomeView extends Component {
         <div className="row">
           <div className="col-md-12">
             <PhotoGallery photos={photos} view={photoView} />
+            <Waypoint onEnter={this.handleInfiniteScroll} threshold={0.3} />
           </div>
         </div>
       </div>

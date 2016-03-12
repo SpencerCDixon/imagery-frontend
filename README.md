@@ -1,16 +1,40 @@
 ## Getting Started
 
 
+## Testing
+All tests require a `test-bundler` before running (similar to rails_helper) that
+sets a bunch of globals to reduce boilerplate.  [That file can be found here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/tests/test-bundler.js).
+It's what makes it so I don't need to `import chai` in every test file.
+
+One convention I have found to be very useful in scaling tests is creating a
+renderComponent function that abstracts away default props/the rendering
+process.  You can find that Higher Order Function [here](https://github.com/SpencerCDixon/imagery-frontend/blob/master/tests/helpers/createFactory.js).
+It allows me to create a function with a bunch of defaults set up (almost like
+using something like Factory Girl) so that way if in the future a Component
+needs more default props I can just add them in _one_ place instead of having to
+find every place in the tests where I'm rendering the component and making sure
+to add that required prop.
+
+I generally don't test styling unless it is state specific.  For example, if a
+component should be a different color based on some state then I want to make
+assertions that it's getting the proper styling.  Since layout styling and
+purely aesthetic styling changes so often I don't usually make assertions on
+those things since it forces developers to change tests too frequently.
+
+
 ## Library Decisions
 
-`classnames` - makes adding css classnames based on conditionally logic much cleaner.  
+`classnames` - makes adding css classnames based on conditionally logic much cleaner.
+
 `axios` - promise basted AJAX library with a nice API that I enjoy.  Vanilla
-fetch is also a good option but you need to manually setup polyfills to use.  
+fetch is also a good option but you need to manually setup polyfills to use.
+
 `humps` - lightweight text processing library adapted from ember-cli string
-utils.  I like using it to normalize api data to be javascript friendly (ie no_snake_case_in_var_names)  
+utils.  I like using it to normalize api data to be javascript friendly (ie no_snake_case_in_var_names)
+
 `react-pure-render` - allows for EXTREME perf benefits.  When using Redux you
 can do a === equality check on props to determine whether or not to re-render.
-By using this it increases speed of app drastically  
+By using this it increases speed of app drastically
 
 
 Redux starter kit I prefer in case you're interested in how it works:

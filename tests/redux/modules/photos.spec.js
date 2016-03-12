@@ -1,5 +1,6 @@
-import reducer, { constants, initialState } from 'redux/modules/photos';
+import reducer, { constants, initialState, actions } from 'redux/modules/photos';
 import deepFreeze from 'deep-freeze';
+import { CALL_API } from 'redux/middleware/api';
 
 describe('(Redux) photos', () => {
   describe('(Reducer)', () => {
@@ -86,6 +87,75 @@ describe('(Redux) photos', () => {
       const nextState = {view: 'grid'};
 
       expect(reducer(initialState, action)).to.eql(nextState);
+    });
+  });
+
+  describe('(Actions)', function() {
+    describe('#fetchInfinitePhotos', function() {
+      const { fetchInfinitePhotos } = actions;
+      const dispatch = () => {};
+
+      it('bails out if there are no photos yet', function() {
+        const getState = () => {
+          return {
+            photos: { items: [] },
+            brands: { selectedBrand: '1' },
+          };
+        }
+        const thunk = fetchInfinitePhotos();
+        expect(thunk(dispatch, getState)).to.be.undefined;
+      });
+
+      it('bails out if there is no pagination link offset', function() {
+        const getState = () => {
+          return {
+            photos: { items: [1], pagination: undefined },
+            brands: { selectedBrand: '1' },
+          };
+        }
+        const thunk = fetchInfinitePhotos();
+        expect(thunk(dispatch, getState)).to.be.undefined;
+      });
+
+      it('deletes brand filter if none is selected', function() {
+        const dispatch = sinon.spy();
+        const getState = () => {
+          return {
+            photos: { items: [1], pagination: 'somepage' },
+            brands: { selectedBrand: 'none' },
+          };
+        }
+        const thunk = fetchInfinitePhotos();
+        thunk(dispatch, getState);
+        expect(dispatch).to.be.called;
+        expect(dispatch).to.be.calledWith({
+          [CALL_API]: {
+            endpoint: '/stream',
+            types: [constants.PHOTO_REQUEST, constants.PHOTO_INFINITE, constants.PHOTO_FAILURE],
+            payload: { offset: 'somepage' },
+          }
+        });
+      });
+
+      it('makes api request with proper payload when all fields are present', function() {
+        const dispatch = sinon.spy();
+        const getState = () => {
+          return {
+            photos: { items: [1], pagination: 'somepage' },
+            brands: { selectedBrand: '1' },
+          };
+        }
+        const thunk = fetchInfinitePhotos();
+        thunk(dispatch, getState);
+        expect(dispatch).to.be.called;
+        expect(dispatch).to.be.calledWith({
+          [CALL_API]: {
+            endpoint: '/stream',
+            types: [constants.PHOTO_REQUEST, constants.PHOTO_INFINITE, constants.PHOTO_FAILURE],
+            payload: { offset: 'somepage', brands: '1' },
+          }
+        });
+      });
     });
   });
 });

@@ -3,7 +3,7 @@ import GalleryCard from 'components/GalleryCard';
 
 const renderComp = createFactory(GalleryCard, {
   userHandle: '@spencercdixon',
-  matches: [],
+  matches: [{ brand: 1, logoRect: [[481, 416]]}],
   imageUrl: 'http://someimage.com',
   view: 'list',
 });

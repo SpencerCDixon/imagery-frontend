@@ -44,9 +44,16 @@ export const fetchInfinitePhotos = () => {
       brands: { selectedBrand },
     } = getState();
 
-    if (items.length === 0) { return; }
+    // bail early, no photos have been fetched yet
+    if (items.length === 0 || pagination === undefined) {
+      return;
+    }
 
-    const payload = { offset: pagination, brands: selectedBrand };
+    let payload = { offset: pagination, brands: selectedBrand };
+    if (selectedBrand === 'none') {
+      delete payload.brands;
+    }
+
     dispatch({
       [CALL_API]: {
         endpoint: '/stream',

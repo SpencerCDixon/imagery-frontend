@@ -4,6 +4,7 @@ import GalleryCard from 'components/GalleryCard';
 
 const renderComp = createFactory(PhotoGallery, {
   photos: [],
+  view: 'list',
 });
 
 describe('(Component) PhotoGallery', () => {
